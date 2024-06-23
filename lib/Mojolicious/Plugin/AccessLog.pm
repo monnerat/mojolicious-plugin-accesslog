@@ -47,8 +47,8 @@ sub register {
         eval { $log->autoflush(1) };
         $logger = sub { $log->print($_[0]) };
     }
-    elsif (blessed($log) and my $l = $log->can('print') || $log->can('info')) {
-        $logger = sub { $l->($log, $_[0]) };
+    elsif (blessed($log) and my $m = $log->can('print') || $log->can('info')) {
+        $logger = sub { $m->($log, $_[0]) };
     }
     elsif ($reftype eq 'CODE') {
         $logger = $log;
